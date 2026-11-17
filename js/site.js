@@ -40,9 +40,9 @@
   if (heroHost) {
     const hero = new Dock(heroHost, {
       label: "KudaDocks demo dock. Hover to magnify; drag any item to move it.",
-      zones: [["start", "app:files", "app:web", "app:chat", "app:music", "app:mail", "app:code", "app:photos", "app:games"], [], ["w:weather", "w:tray", "w:clock"]],
-      optional: ["app:code", "app:photos", "app:games", "w:weather", "w:tray"],
-      optional2: ["app:mail"],
+      zones: [["start", "app:explorer", "app:chrome", "app:discord", "app:spotify", "app:telegram", "app:teams", "app:photoshop", "app:premiere", "app:steam"], [], ["w:weather", "w:tray", "w:clock"]],
+      optional: ["app:teams", "app:premiere", "app:steam", "w:weather", "w:tray"],
+      optional2: ["app:telegram", "app:photoshop"],
     });
     hero.assemble();
   }
@@ -55,9 +55,9 @@
       layout: "full",
       size: 40,
       magnify: 1.5,
-      zones: [["start", "app:files", "app:web", "app:chat", "app:music", "app:code"], [], ["w:music", "w:weather", "w:tray", "w:clock"]],
-      optional: ["app:code", "w:weather"],
-      optional2: ["app:chat", "app:music", "w:tray"],
+      zones: [["start", "app:explorer", "app:chrome", "app:discord", "app:spotify", "app:photoshop", "app:premiere"], [], ["w:music", "w:weather", "w:tray", "w:clock"]],
+      optional: ["app:premiere", "w:weather"],
+      optional2: ["app:discord", "app:photoshop", "w:tray"],
     });
     $("#arrange-reset")?.addEventListener("click", () => arrange.reset());
   }
@@ -68,9 +68,9 @@
   if (widgetHost && gallery) {
     const dock = new Dock(widgetHost, {
       label: "Dock for the widget demo.",
-      zones: [["start", "app:files", "app:web", "app:chat", "app:music"], [], ["w:clock"]],
-      optional: ["app:chat"],
-      optional2: ["app:music"],
+      zones: [["start", "app:explorer", "app:chrome", "app:discord", "app:spotify", "app:obs"], [], ["w:clock"]],
+      optional: ["app:obs"],
+      optional2: ["app:discord"],
     });
     const groups = {};
     Object.entries(WIDGETS).forEach(([key, w]) => { (groups[w.group] ||= []).push(key); });
@@ -120,9 +120,9 @@
     const dock = new Dock(lookHost, {
       label: "Dock for the customization demo.",
       // Compact on purpose: the accent colour shows on the playing bars and the CPU meter.
-      zones: [["start", "app:files", "app:web", "app:chat", "app:music", "app:mail", "app:photos"], [], ["w:eq", "w:cpu", "w:clock"]],
-      optional: ["app:mail", "app:photos", "w:cpu"],
-      optional2: ["app:chat"],
+      zones: [["start", "app:explorer", "app:chrome", "app:discord", "app:spotify", "app:telegram", "app:aftereffects"], [], ["w:eq", "w:cpu", "w:clock"]],
+      optional: ["app:telegram", "app:aftereffects", "w:cpu"],
+      optional2: ["app:discord"],
     });
     const read = () => {
       const f = new FormData(form);

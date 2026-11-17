@@ -8,19 +8,8 @@
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  // ---------------------------------------------------------------- glyphs (original line icons, 24×24)
+  // ---------------------------------------------------------------- glyphs for widgets (original line icons, 24×24)
   const G = {
-    files: '<path d="M3.5 8a2 2 0 0 1 2-2h3.4l2 2h7.6a2 2 0 0 1 2 2v6.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z" fill="currentColor" stroke="none"/>',
-    web: '<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.6 2.4 2.6 13.6 0 16M12 4c-2.6 2.4-2.6 13.6 0 16"/>',
-    chat: '<path d="M5.5 5.5h13A1.5 1.5 0 0 1 20 7v8a1.5 1.5 0 0 1-1.5 1.5H11l-4.5 3.5v-3.5h-1A1.5 1.5 0 0 1 4 15V7a1.5 1.5 0 0 1 1.5-1.5z" fill="currentColor" stroke="none"/>',
-    music: '<path d="M9 17.5V6.5l10-2v11"/><circle cx="7" cy="17.5" r="2.2" fill="currentColor" stroke="none"/><circle cx="17" cy="15.5" r="2.2" fill="currentColor" stroke="none"/>',
-    mail: '<rect x="3.5" y="6" width="17" height="12" rx="2"/><path d="M4.5 7.5l7.5 5.5l7.5-5.5"/>',
-    code: '<path d="M9 8l-4 4l4 4M15 8l4 4l-4 4M13 6l-2 12"/>',
-    photos: '<rect x="3.5" y="5.5" width="17" height="13" rx="2"/><circle cx="9" cy="10" r="1.6" fill="currentColor" stroke="none"/><path d="M4 16.5l4.5-4l3.5 3l3-2.5l5 4"/>',
-    notes: '<path d="M6 18.5l.8-3.6L16.2 5.5a1.8 1.8 0 0 1 2.5 0l.3.3a1.8 1.8 0 0 1 0 2.5L9.6 17.7z"/><path d="M14.5 7.2l2.8 2.8"/>',
-    games: '<path d="M7.5 8.5h9a4.5 4.5 0 0 1 4.4 5.4l-.5 2.4a2 2 0 0 1-3.4 1L15 15.5H9l-2 1.8a2 2 0 0 1-3.4-1l-.5-2.4a4.5 4.5 0 0 1 4.4-5.4z"/><path d="M8.5 11v3M7 12.5h3"/><circle cx="15.5" cy="11.5" r=".9" fill="currentColor" stroke="none"/><circle cx="17.2" cy="13.5" r=".9" fill="currentColor" stroke="none"/>',
-    term: '<rect x="3.5" y="5" width="17" height="14" rx="2.5"/><path d="M7.5 10l3 2.5l-3 2.5M12.5 15.5h4"/>',
-    video: '<rect x="3.5" y="6.5" width="12" height="11" rx="2"/><path d="M15.5 10.5l5-3v9l-5-3z" fill="currentColor" stroke="none"/>',
     play: '<path d="M8 5.5v13l10.5-6.5z" fill="currentColor" stroke="none"/>',
     pause: '<rect x="7" y="5.5" width="3.6" height="13" rx="1" fill="currentColor" stroke="none"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1" fill="currentColor" stroke="none"/>',
     prev: '<path d="M18 6v12l-8.5-6z" fill="currentColor" stroke="none"/><rect x="6" y="6" width="2.4" height="12" rx="1" fill="currentColor" stroke="none"/>',
@@ -39,19 +28,22 @@
   const svg = (name, cls = "") =>
     `<svg class="g ${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${G[name]}</svg>`;
 
-  // ---------------------------------------------------------------- apps (fictional, generic)
+  // ---------------------------------------------------------------- apps: each one's icon is assets/apps/<key>.png
+  // The icons belong to their owners and appear only to show how KudaDocks displays real apps (see notices.html).
   const APPS = {
-    files: { name: "Files", glyph: "files", tone: "amber", running: true },
-    web: { name: "Browser", glyph: "web", tone: "sky", running: true },
-    chat: { name: "Chat", glyph: "chat", tone: "violet", running: true },
-    music: { name: "Music", glyph: "music", tone: "rose", running: true },
-    mail: { name: "Mail", glyph: "mail", tone: "blue" },
-    code: { name: "Code", glyph: "code", tone: "slate" },
-    photos: { name: "Photos", glyph: "photos", tone: "sunset" },
-    notes: { name: "Notes", glyph: "notes", tone: "lemon" },
-    games: { name: "Games", glyph: "games", tone: "grape" },
-    term: { name: "Terminal", glyph: "term", tone: "ink" },
-    video: { name: "Video", glyph: "video", tone: "red" },
+    explorer: { name: "File Explorer", running: true },
+    chrome: { name: "Google Chrome", running: true },
+    discord: { name: "Discord", running: true },
+    spotify: { name: "Spotify", running: true },
+    telegram: { name: "Telegram" },
+    teams: { name: "Microsoft Teams" },
+    photoshop: { name: "Adobe Photoshop" },
+    premiere: { name: "Adobe Premiere Pro" },
+    aftereffects: { name: "Adobe After Effects" },
+    steam: { name: "Steam" },
+    obs: { name: "OBS Studio" },
+    outlook: { name: "Outlook" },
+    terminal: { name: "Terminal" },
   };
 
   // ---------------------------------------------------------------- shared live data for widgets
@@ -219,9 +211,11 @@
       this.say = mk("div", "sr-only");
       this.say.setAttribute("aria-live", "polite");
       host.append(this.bar, this.row, this.say);
+      this.k = 1;   // the dock's scale; below 1 only when even its slimmest layout is wider than its frame
       this.apply();
       this.fill(this.initial);
       this.bind();
+      if (window.ResizeObserver && host.parentElement) new ResizeObserver(() => this.fit()).observe(host.parentElement);
     }
 
     // ---- building
@@ -229,6 +223,51 @@
       this.zoneEls.forEach((z, i) => z.replaceChildren(...(zones[i] || []).map((id) => this.item(id))));
       this.zones = zones.map((z) => z.slice());
       this.roving();
+      this.fit();
+    }
+
+    // ---- fitting: the dock, plus the room its icons need to magnify, must fit inside its frame. If it doesn't,
+    // the optional items go first (the "opt" ones, then "opt2"); as a last resort the whole dock is scaled down.
+    // This keeps a full-width bar's right-hand widgets pinned in place and on screen while icons magnify.
+    fit() {
+      const h = this.host, frame = h.parentElement;
+      if (this.drag || !frame || !frame.clientWidth) return;
+      h.classList.remove("fit1", "fit2");
+      h.style.setProperty("--fit", "1");
+      this.k = 1;
+      if (!h.getClientRects().length) return;
+      const room = frame.clientWidth - (this.o.layout === "full" ? 0 : 12);
+      let need = 0;
+      for (const level of ["", "fit1", "fit2"]) {
+        if (level) h.classList.add(level);
+        need = this.natural() + this.reserve();
+        if (need <= room) return;
+      }
+      this.k = Math.max(0.45, room / need);
+      h.style.setProperty("--fit", this.k.toFixed(3));
+    }
+
+    /** The dock's width with no icon magnified. */
+    natural() {
+      const px = (v) => parseFloat(v) || 0;
+      let w = 0;
+      for (const it of this.items()) {
+        if (!it.getClientRects().length) continue;
+        let iw = it.offsetWidth;
+        if (it.classList.contains("app") && it._s > 1) { const ic = it.querySelector(".icon"); iw -= (ic.offsetWidth * (it._s - 1)) / it._s; }
+        const cs = getComputedStyle(it);
+        w += iw + px(cs.marginLeft) + px(cs.marginRight);
+      }
+      const hs = getComputedStyle(this.host);
+      return w + px(hs.paddingLeft) + px(hs.paddingRight);
+    }
+
+    /** Extra width the magnification bump adds at its peak: about (M - 1) × 2.6 icons, plus a little air. */
+    reserve() {
+      const M = reduce.matches ? 1 : this.o.magnify;
+      const app = [...this.host.querySelectorAll(".item.app")].find((a) => a.getClientRects().length);
+      if (M <= 1 || !app) return 4;
+      return (M - 1) * 2.6 * (app.querySelector(".icon").offsetWidth / (app._s || 1)) + 4;
     }
 
     item(id) {
@@ -241,8 +280,8 @@
         const name = kind === "start" ? "Start" : app.name;
         el.setAttribute("aria-label", name);
         el.title = name;
-        const icon = mk("span", "icon " + (kind === "start" ? "start" : "tone-" + app.tone));
-        icon.innerHTML = kind === "start" ? `<img src="assets/logo.png" alt="" draggable="false">` : svg(app.glyph);
+        const icon = mk("span", "icon " + (kind === "start" ? "start" : "real"));
+        icon.innerHTML = `<img src="assets/${kind === "start" ? "logo" : "apps/" + key}.png" alt="" draggable="false">`;
         el.append(icon, mk("span", "run"));
         if (app?.running) el.classList.add("on");
       } else {
@@ -271,6 +310,7 @@
     set(patch) {
       Object.assign(this.o, patch);
       this.apply();
+      this.fit();
       this.kick();
     }
 
@@ -295,17 +335,22 @@
       h.addEventListener("pointermove", (e) => this.move(e));
       h.addEventListener("pointerleave", () => { this.hover = false; this.kick(); });
       h.addEventListener("pointerdown", (e) => this.down(e));
-      h.addEventListener("pointerup", () => this.up());
-      h.addEventListener("pointercancel", () => this.up());
-      h.addEventListener("lostpointercapture", () => this.up());
       h.addEventListener("click", (e) => this.click(e), true);
       h.addEventListener("keydown", (e) => this.key(e));
       h.addEventListener("dragstart", (e) => e.preventDefault());
+      // While the button is held, the pointer is followed across the whole page. (Pointer capture alone is not
+      // enough: moving the dragged item to its new place in the page makes the browser drop the capture.)
+      this.onTrack = (e) => this.track(e);
+      this.onRelease = (e) => { if (!this.press || e.pointerId === this.press.pid) this.up(); };
     }
 
     move(e) {
       if (e.pointerType !== "touch") { this.hover = true; this.px = e.clientX; this.kick(); }
-      if (this.press && !this.drag && Math.hypot(e.clientX - this.press.x, e.clientY - this.press.y) > 6) this.begin();
+    }
+
+    track(e) {
+      if (!this.press || e.pointerId !== this.press.pid) return;
+      if (!this.drag && Math.hypot(e.clientX - this.press.x, e.clientY - this.press.y) > 6) this.begin();
       if (this.drag) { e.preventDefault(); this.dragTo(e.clientX); }
     }
 
@@ -356,11 +401,16 @@
       const it = e.target.closest(".item");
       if (!it || !this.host.contains(it)) return;
       this.press = { it, x: e.clientX, y: e.clientY, pid: e.pointerId };
+      window.addEventListener("pointermove", this.onTrack);
+      window.addEventListener("pointerup", this.onRelease);
+      window.addEventListener("pointercancel", this.onRelease);
     }
+
+    capture(it) { try { it.setPointerCapture(this.press.pid); } catch { /* pointer already gone */ } }
 
     begin() {
       const it = this.press.it;
-      try { it.setPointerCapture(this.press.pid); } catch { /* pointer already gone */ }
+      this.capture(it);
       const r = it.getBoundingClientRect();
       this.drag = { it, grab: this.press.x - (r.left + r.width / 2), dx: 0 };
       this.suppress = true;
@@ -369,28 +419,35 @@
       this.kick();
     }
 
+    // Positions are measured on screen; --fx is in the dock's own pixels, which differ when the dock is scaled to fit.
     layoutCenter(el) {
       const r = el.getBoundingClientRect();
-      return r.left + r.width / 2 - (this.drag && el === this.drag.it ? this.drag.dx : shiftOf(el));
+      return r.left + r.width / 2 - (this.drag && el === this.drag.it ? this.drag.dx : shiftOf(el) * this.k);
     }
 
     dragTo(x) {
       const d = this.drag, it = d.it;
-      const [zi, idx] = this.target(x);
+      const [zi, ref] = this.target(x);
       const zone = this.zoneEls[zi];
-      if (!(it.parentElement === zone && [...zone.children].indexOf(it) === idx)) {
-        const others = [...zone.children].filter((c) => c !== it);
-        this.flip(() => zone.insertBefore(it, others[idx] || null), it);
+      // Only what's on screen counts: items hidden to fit a narrow screen are skipped when deciding where it goes.
+      const shown = [...zone.children].filter((c) => c === it || c.getClientRects().length);
+      const at = shown.indexOf(it);
+      const placed = at >= 0 && (ref ? shown[at + 1] === ref : at === shown.length - 1);
+      if (!placed) {
+        const last = shown.filter((c) => c !== it).pop();
+        this.flip(() => { if (ref) zone.insertBefore(it, ref); else if (last) last.after(it); else zone.append(it); }, it);
+        this.capture(it);   // re-take the pointer, which the move above released
       }
-      d.dx = x - d.grab - (it.getBoundingClientRect().left + it.getBoundingClientRect().width / 2 - d.dx);
-      it.style.setProperty("--fx", d.dx + "px");
+      const r = it.getBoundingClientRect();
+      d.dx = x - d.grab - (r.left + r.width / 2 - d.dx);
+      it.style.setProperty("--fx", d.dx / this.k + "px");
     }
 
     target(x) {
       const it = this.drag.it, cur = +it.parentElement.dataset.zone, full = this.o.layout === "full";
       let best = cur, bestD = Infinity;
       this.zoneEls.forEach((z, zi) => {
-        const kids = [...z.children].filter((c) => c !== it);
+        const kids = [...z.children].filter((c) => c !== it && c.getClientRects().length);
         const r = z.getBoundingClientRect();
         let a = r.left, b = r.right;
         if (!kids.length && zi !== cur && !full) return;   // in a floating dock an empty area takes no space
@@ -400,13 +457,13 @@
           b = zi === 0 ? anchor + 150 : zi === 2 ? anchor : anchor + 75;
         }
         let dist = x < a ? a - x : x > b ? x - b : 0;
-        if (zi === cur) dist -= 20;
+        if (full && !kids.length && dist === 0) dist = -40;   // over an empty area's drop spot: that area wins
+        else if (zi === cur) dist -= 20;
         if (dist < bestD) { bestD = dist; best = zi; }
       });
-      const kids = [...this.zoneEls[best].children].filter((c) => c !== it);
-      let idx = 0;
-      kids.forEach((k) => { if (this.layoutCenter(k) < x) idx++; });
-      return [best, idx];
+      // The item goes in front of the first on-screen item whose centre is right of the pointer (null: at the end).
+      const kids = [...this.zoneEls[best].children].filter((c) => c !== it && c.getClientRects().length);
+      return [best, kids.find((k) => this.layoutCenter(k) >= x) || null];
     }
 
     /** Runs a DOM change, then slides every other item from where it was to where it now belongs. */
@@ -416,10 +473,10 @@
       mutate();
       items.forEach((i) => {
         if (!i.isConnected) return;
-        const dx = before.get(i) - (i.getBoundingClientRect().left - shiftOf(i));
+        const dx = before.get(i) - (i.getBoundingClientRect().left - shiftOf(i) * this.k);
         if (Math.abs(dx) < 0.5 || reduce.matches) return;
         i.classList.add("no-anim");
-        i.style.setProperty("--fx", dx + "px");
+        i.style.setProperty("--fx", dx / this.k + "px");
         i.getBoundingClientRect();
         i.classList.remove("no-anim");
         i.style.setProperty("--fx", "0px");
@@ -427,6 +484,9 @@
     }
 
     up() {
+      window.removeEventListener("pointermove", this.onTrack);
+      window.removeEventListener("pointerup", this.onRelease);
+      window.removeEventListener("pointercancel", this.onRelease);
       if (this.drag) {
         const it = this.drag.it;
         this.drag = null;
@@ -474,13 +534,14 @@
     nudge(it, dir) {
       const full = this.o.layout === "full";
       this.flip(() => {
-        const zone = it.parentElement, sibs = [...zone.children], nb = sibs[sibs.indexOf(it) + dir];
+        const shown = (z) => [...z.children].filter((c) => c === it || c.getClientRects().length);
+        const zone = it.parentElement, sibs = shown(zone), nb = sibs[sibs.indexOf(it) + dir];
         if (nb) { if (dir > 0) nb.after(it); else nb.before(it); return; }
         for (let zi = +zone.dataset.zone + dir; zi >= 0 && zi <= 2; zi += dir) {
-          const z = this.zoneEls[zi];
+          const z = this.zoneEls[zi], vis = shown(z);
           if (full) { if (dir > 0) z.prepend(it); else z.append(it); return; }
-          if (z.children.length) {
-            const edge = dir > 0 ? z.firstElementChild : z.lastElementChild;
+          if (vis.length) {
+            const edge = dir > 0 ? vis[0] : vis[vis.length - 1];
             if (dir > 0) edge.after(it); else edge.before(it);
             return;
           }
@@ -512,6 +573,7 @@
 
     sync() {
       this.zones = this.zoneEls.map((z) => [...z.children].map((c) => c.dataset.id));
+      this.fit();
       if (this.o.onChange) this.o.onChange(this);
     }
 

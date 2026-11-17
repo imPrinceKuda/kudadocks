@@ -15,10 +15,11 @@ window.KUDADOCKS = {
   released: "November 16, 2026",
   sizeMB: 131,
   // SHA-256 of KudaDocks-Setup.exe. Get it in PowerShell with:  Get-FileHash .\dist\KudaDocks-Setup.exe
-  sha256: "F8399672BF3EF0BC933B79CF1246406A491E71CF03ACC3638A1BA5FC0E6E5677",
+  sha256: "6D06D583A4DC51E2EDF84490F2CB38381E5336CFC8B8D0F62AE6A1890EBFA0AF",
 
   // ---- Shown on the legal pages (a public handle, not a legal name)
-  owner: "imPrinceKuda",
+  // Also the name in KudaDocks/EULA.txt and the Copyright line of both .csproj files; keep them all the same.
+  owner: "Kuda",
   email: "contact@kudaxd.com",
   jurisdiction: "the State of California, United States",
   legalUpdated: "November 16, 2026",

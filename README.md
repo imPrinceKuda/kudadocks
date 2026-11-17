@@ -34,13 +34,13 @@ While anything is missing, a yellow note at the top of the website lists it.
 | File | Value | Currently |
 |---|---|---|
 | `website/js/config.js` | `githubUser`, `githubRepo` | `imPrinceKuda`, `kudadocks` |
-| `website/js/config.js` | `owner`: the public name on the legal pages | `imPrinceKuda` (a handle, not a legal name) |
+| `website/js/config.js` | `owner`: the public name on the legal pages | `Kuda` (a public name, not a legal name) |
 | `website/js/config.js` | `email`: the public contact address | `contact@kudaxd.com` |
 | `website/js/config.js` | `jurisdiction`: whose laws apply | `the State of California, United States` |
 | `KudaDocks/EULA.txt` | the same owner, jurisdiction and email | filled in |
 | `KudaDocks/AppInfo.cs` | `Website` | `https://imprincekuda.github.io/kudadocks/` |
 | `website/index.html` | `og:url` and `og:image` near the top | the same website address |
-| `KudaDocks/KudaDocks.csproj` | `Copyright` (shown in the exe's Properties) | `Copyright © 2026 imPrinceKuda` |
+| `KudaDocks/KudaDocks.csproj`, `Installer/KudaDocksSetup.csproj` | `Copyright` (shown in each exe's Properties) | `Copyright © 2026 Kuda` |
 
 The email address appears publicly on the legal pages and in the License Agreement.
 
@@ -204,10 +204,15 @@ Keep these in mind:
   not an app ID of your own. That may break Discord's Developer Terms of Service. Before a wide public
   release, consider removing that widget from the public build, or applying to Discord for proper access
   under your own app. The Privacy Policy describes the widget accurately in the meantime.
-- **Other companies' names and logos.** The site refers to Windows, Google, Outlook, iCloud and AirPods only to
-  describe compatibility, with a trademark notice. Its demo icons are original and generic. If you add real
-  screenshots or videos of your desktop, avoid making other brands' logos the focus, and hide personal
-  information such as names, chats and notifications.
+- **Other companies' names and logos.** The demo docks show real app icons (File Explorer, Chrome, Discord,
+  Spotify, Telegram, Teams, Photoshop, Premiere Pro, After Effects, Steam, OBS), taken from those apps as
+  Windows displays them and stored in `assets/apps/`. Showing them to demonstrate how a dock displays installed
+  apps is a common, low-risk use, and the site carries a trademark notice and a no-endorsement line. It is
+  still a risk you're choosing: some companies' brand rules (Adobe's in particular) say not to use their
+  product icons in another product's marketing without permission. If any company asks you to remove its
+  icon, delete its file from `assets/apps/` and its name from `js/site.js` straight away. Never alter the
+  icons, put them in the KudaDocks logo, or suggest a partnership. If you add real screenshots or videos of
+  your desktop, also hide personal information such as names, chats and notifications.
 - **Don't copy other products' websites.** Keep the wording and visuals original, including when a
   competitor offers similar features.
 - **Free data services.** Open-Meteo's free tier is for non-commercial use. If KudaDocks ever earns money
@@ -218,7 +223,8 @@ Keep these in mind:
 
 ### Keeping your real name private
 
-The site, the License Agreement, the installer and the app use only the handle **imPrinceKuda** and the
+The site, the License Agreement, the installer and the app use only the name **Kuda** (and the GitHub handle
+**imPrinceKuda** in download links) and the
 contact address. A few places outside these files can still show your legal name, so check them:
 
 - **Your GitHub profile.** The **Name** field on your profile appears next to every file you upload. Leave
@@ -247,6 +253,7 @@ contact address. A few places outside these files can still show your legal name
 | `js/site.js` | Fills in values from `config.js` and sets up the demos |
 | `css/site.css` | All styles |
 | `assets/` | Logo and the image shown when the site is shared |
+| `assets/apps/` | The app icons in the demo docks (one PNG per app; `js/dock.js` lists them and `js/site.js` picks which appear where) |
 | `favicon.ico` | Browser tab icon |
 | `.nojekyll` | Tells GitHub Pages to serve files exactly as they are |
 | `robots.txt` | Lets search engines index the site |
