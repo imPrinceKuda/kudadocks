@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>KudaDocks: a free dock that replaces the Windows 11 taskbar</title>
+  <meta name="description" content="KudaDocks replaces the Windows 11 taskbar with a dock you arrange however you like: glass themes, more than 60 live widgets, folders, and everything the taskbar already did. Free, no account.">
+  <meta name="theme-color" content="#08102a">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="KudaDocks: your taskbar, rebuilt">
+  <meta property="og:description" content="A free dock for Windows 11 with glass themes, live widgets and drag-anywhere layout.">
+  <meta property="og:url" content="https://imprincekuda.github.io/kudadocks/">
+  <meta property="og:image" content="https://imprincekuda.github.io/kudadocks/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+  <link rel="stylesheet" href="css/site.css">
+  <script src="js/config.js" defer></script>
+  <script src="js/dock.js" defer></script>
+  <script src="js/site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="32" height="32">KudaDocks</a>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#try">Try it</a>
+        <a href="#widgets">Widgets</a>
+        <a href="#customize">Customize</a>
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+      </nav>
+      <a class="btn btn-primary" data-kd-download href="#download">Free download</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wall" aria-labelledby="hero-title">
+      <h1 id="hero-title">Your taskbar, rebuilt.</h1>
+      <p class="lede">KudaDocks swaps the Windows 11 taskbar for a dock you can arrange any way you like, with glass themes, more than 60 live widgets, and everything the old taskbar already did.</p>
+      <div class="ctas">
+        <a class="btn btn-primary btn-big" data-kd-download href="#download">Free download</a>
+        <a class="btn btn-quiet btn-big" href="#try">Try the dock</a>
+      </div>
+      <p class="fine">For Windows 11, 64-bit. Version <span data-kd="version">1.0.0</span>. By downloading you agree to the <a href="eula.html">License Agreement</a>.</p>
+      <p class="hint" aria-hidden="true">This dock is live. Hover over it, click an icon, or drag one somewhere else.</p>
+      <div id="hero-dock"></div>
+    </section>
+
+    <section class="sec" id="try" aria-labelledby="try-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="try-title">Put everything where you want it.</h2>
+          <p>Drag apps, widgets, the clock, even the Start button. Drop them on the left, in the middle or on the right of the bar, and they stay where you put them.</p>
+          <p class="keys">On a keyboard: tab to the dock, choose an item with the arrow keys, then hold <kbd>Alt</kbd> and press <kbd>←</kbd> or <kbd>→</kbd> to move it.</p>
+        </div>
+        <div class="screen wall">
+          <div class="win" aria-hidden="true"><div class="win-bar"><b></b><span><i></i><i></i><i></i></span></div><div class="win-body"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="win alt" aria-hidden="true"><div class="win-bar"><b></b><span><i></i><i></i><i></i></span></div><div class="win-body"><i></i><i></i><i></i></div></div>
+          <div id="arrange-dock"></div>
+        </div>
+        <div class="demo-bar">
+          <span>Try dragging the music player to the far left, or the clock into the middle.</span>
+          <button class="btn btn-quiet" id="arrange-reset" type="button">Reset layout</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="widgets" aria-labelledby="widgets-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="widgets-title">Add a widget, watch it appear.</h2>
+          <p>KudaDocks comes with more than 60 widgets: clocks, weather, music controls, system stats, timers, to-dos and more. Click a widget below to put it in the dock, and click it again to take it out.</p>
+        </div>
+        <div class="screen wall">
+          <div class="win" aria-hidden="true"><div class="win-bar"><b></b><span><i></i><i></i><i></i></span></div><div class="win-body"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div id="widgets-dock"></div>
+        </div>
+        <div class="gallery" id="gallery" role="group" aria-label="Widget gallery"></div>
+        <p class="demo-note">This is a sample. The gallery in the app has every widget, each one running live.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="customize" aria-labelledby="customize-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="customize-title">Make it look like yours.</h2>
+          <p>Five themes, including Liquid Glass. Any accent colour. Compact or roomy. A floating dock or a full-width bar, at the bottom of the screen or the top. Every change shows up instantly, just as it does in the app.</p>
+        </div>
+        <div class="look">
+          <form class="controls" id="look-form" aria-label="Dock appearance">
+            <fieldset>
+              <legend>Theme</legend>
+              <div class="seg">
+                <input type="radio" name="theme" id="t-liquid" value="liquid" checked><label for="t-liquid">Liquid Glass</label>
+                <input type="radio" name="theme" id="t-ios" value="ios"><label for="t-ios">Frosted Glass</label>
+                <input type="radio" name="theme" id="t-black" value="black"><label for="t-black">Black</label>
+                <input type="radio" name="theme" id="t-white" value="white"><label for="t-white">White</label>
+                <input type="radio" name="theme" id="t-midnight" value="midnight"><label for="t-midnight">Midnight</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Accent colour</legend>
+              <div class="swatches">
+                <input type="radio" name="accent" id="a-blue" value="#1a8dff" checked><label for="a-blue" class="sw-blue"><span class="sr-only">Blue</span></label>
+                <input type="radio" name="accent" id="a-cyan" value="#2bc8ff"><label for="a-cyan" class="sw-cyan"><span class="sr-only">Cyan</span></label>
+                <input type="radio" name="accent" id="a-violet" value="#7b5cff"><label for="a-violet" class="sw-violet"><span class="sr-only">Violet</span></label>
+                <input type="radio" name="accent" id="a-rose" value="#ff375f"><label for="a-rose" class="sw-rose"><span class="sr-only">Rose</span></label>
+                <input type="radio" name="accent" id="a-orange" value="#ff9f0a"><label for="a-orange" class="sw-orange"><span class="sr-only">Orange</span></label>
+                <input type="radio" name="accent" id="a-green" value="#30d158"><label for="a-green" class="sw-green"><span class="sr-only">Green</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Layout</legend>
+              <div class="seg">
+                <input type="radio" name="layout" id="l-float" value="float" checked><label for="l-float">Floating</label>
+                <input type="radio" name="layout" id="l-full" value="full"><label for="l-full">Full width</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Position</legend>
+              <div class="seg">
+                <input type="radio" name="pos" id="p-bottom" value="bottom" checked><label for="p-bottom">Bottom</label>
+                <input type="radio" name="pos" id="p-top" value="top"><label for="p-top">Top</label>
+              </div>
+            </fieldset>
+            <div>
+              <label class="label" for="size">Icon size <output id="size-out" for="size">46 px</output></label>
+              <input type="range" id="size" name="size" min="32" max="56" step="1" value="46">
+            </div>
+            <div>
+              <label class="label" for="magnify">Magnification <output id="magnify-out" for="magnify">1.70×</output></label>
+              <input type="range" id="magnify" name="magnify" min="1" max="2.2" step="0.05" value="1.7">
+            </div>
+            <div>
+              <label class="label" for="bar">Bar opacity <output id="bar-out" for="bar">100%</output></label>
+              <input type="range" id="bar" name="bar" min="0" max="100" step="5" value="100">
+            </div>
+            <div>
+              <label class="switch" for="autohide"><span>Hide automatically</span><input type="checkbox" id="autohide" name="autohide" role="switch"></label>
+              <p class="note">With this on, move the pointer to the edge of the screen to bring the dock back.</p>
+            </div>
+          </form>
+          <div class="screen wall" id="look-screen">
+            <div class="win" aria-hidden="true"><div class="win-bar"><b></b><span><i></i><i></i><i></i></span></div><div class="win-body"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div id="look-dock"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="features" aria-labelledby="features-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="features-title">Everything your taskbar did, plus a lot it didn't.</h2>
+        </div>
+        <div class="features">
+          <div>
+            <h3>Keeps Windows working</h3>
+            <ul>
+              <li>The Start button and the Windows key open the real Start menu.</li>
+              <li>Your pinned apps move over from your current taskbar the first time it runs.</li>
+              <li>Window previews when you hover over an app.</li>
+              <li>Right-click menus with each app's own shortcuts, such as a new window, a private window, or recent files.</li>
+              <li>Unread counts and download progress on app icons.</li>
+              <li>The system tray, Quick Settings and notifications are one click away.</li>
+              <li>A dock on every monitor.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Keeps things organized</h3>
+            <ul>
+              <li>Drop one app onto another to make a folder.</li>
+              <li>Pin a folder such as Downloads and it opens as a stack of your newest files.</li>
+              <li>Each browser profile gets its own icon, marked with its initial.</li>
+              <li>Drag tray icons onto the dock to keep them in view.</li>
+              <li>Lock the dock so nothing moves by accident.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Stays out of your way</h3>
+            <ul>
+              <li>Hides automatically, at the speed you choose.</li>
+              <li>Steps aside for fullscreen games and video.</li>
+              <li>Starts with Windows, if you want it to.</li>
+              <li>Light on memory and processor time.</li>
+              <li>Quit it and the normal Windows taskbar comes right back.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Does more than a taskbar</h3>
+            <ul>
+              <li>A calendar with holidays, plus your Google, Outlook or iCloud calendars through their private links.</li>
+              <li>Screen time and a timeline of your day.</li>
+              <li>Screenshots, and copying text straight off the screen.</li>
+              <li>A launcher for apps, files, folders and web searches.</li>
+              <li>Controls for Wi-Fi, Bluetooth, brightness and sound output.</li>
+              <li>Music controls, AirPods battery levels, weather and a currency converter.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="privacy-line"><strong>No account, no ads, no tracking.</strong> Your settings, notes and screen time stay on your PC. Read the <a href="privacy.html">Privacy Policy</a>.</p>
+      </div>
+    </section>
+
+    <section class="sec dl" id="download" aria-labelledby="download-title">
+      <div class="wrap">
+        <img class="dl-logo" src="assets/logo.png" alt="" width="120" height="120">
+        <h2 id="download-title">Download KudaDocks</h2>
+        <p class="lede">Free for personal and business use. It installs for your account only, so you won't need an administrator password.</p>
+        <div class="ctas">
+          <a class="btn btn-primary btn-big" data-kd-download href="#setup">
+            <svg class="g" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5l5-5M5 19.5h14"/></svg>
+            Free download
+          </a>
+        </div>
+        <p class="agree">By downloading you agree to the <a href="eula.html">License Agreement</a> and the <a href="privacy.html">Privacy Policy</a>.</p>
+        <dl class="specs">
+          <div><dt>Version</dt><dd data-kd="version">1.0.0</dd></div>
+          <div><dt>Released</dt><dd data-kd="released">November 16, 2026</dd></div>
+          <div><dt>Download size</dt><dd data-kd="sizeMB">131 MB</dd></div>
+          <div><dt>Requires</dt><dd>Windows 11, 64-bit</dd></div>
+        </dl>
+        <div class="smartscreen">
+          <p><strong>If Windows shows "Windows protected your PC":</strong> this appears for new apps that Windows doesn't recognize yet. Select <strong>More info</strong>, then <strong>Run anyway</strong>. Only do this for a file you downloaded from this page.</p>
+        </div>
+        <details class="verify">
+          <summary>Check that your download is genuine</summary>
+          <p>In PowerShell, run <code>Get-FileHash .\KudaDocks-Setup.exe</code> in your Downloads folder. The result should match:</p>
+          <p><code data-kd="sha256">See js/config.js</code></p>
+          <p>Older versions are on the <a data-kd-releases href="#setup">releases page</a>.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="sec" id="faq" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div class="sec-head"><h2 id="faq-title">Questions</h2></div>
+        <div class="faq">
+          <div>
+            <details><summary>Is KudaDocks really free?</summary><p>Yes. There's no price, no trial, no account and no ads.</p></details>
+            <details><summary>What happens to the Windows taskbar?</summary><p>KudaDocks hides it while it runs and shows its own dock instead. Quit KudaDocks, or uninstall it, and the Windows taskbar comes straight back.</p></details>
+            <details><summary>Do I need administrator rights?</summary><p>No. KudaDocks installs for your Windows account only.</p></details>
+            <details><summary>Does it work on Windows 10?</summary><p>KudaDocks is built for Windows 11. It may run on recent versions of Windows 10, but it isn't tested there.</p></details>
+          </div>
+          <div>
+            <details><summary>How do I uninstall it?</summary><p>Open Settings, then Apps, then Installed apps, find KudaDocks and choose Uninstall. Your settings are kept in <code>%AppData%\KudaDocks</code>; delete that folder if you want them gone too.</p></details>
+            <details><summary>Does KudaDocks collect my data?</summary><p>No. It doesn't send us anything, and there are no analytics or ads. The <a href="privacy.html">Privacy Policy</a> lists the few optional features that connect to outside services, such as weather.</p></details>
+            <details><summary>Why does Windows warn me about the installer?</summary><p>Windows SmartScreen warns about new apps until enough people have downloaded them. Choose More info, then Run anyway. You can check the file's fingerprint in the download section above.</p></details>
+            <details><summary>Is KudaDocks made by Microsoft?</summary><p>No. KudaDocks is an independent project and is not affiliated with, endorsed by or sponsored by Microsoft.</p></details>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-top">
+        <a class="brand" href="index.html"><img src="assets/logo.png" alt="" width="32" height="32">KudaDocks</a>
+        <nav aria-label="Legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="eula.html">License Agreement</a>
+          <a href="notices.html">Notices and credits</a>
+        </nav>
+      </div>
+      <p>© <span data-year>2026</span> <span data-kd="owner">imPrinceKuda</span>. KudaDocks is an independent project and is not affiliated with, endorsed by or sponsored by Microsoft Corporation. Windows is a trademark of the Microsoft group of companies. All other trademarks belong to their owners; see <a href="notices.html">Notices and credits</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
